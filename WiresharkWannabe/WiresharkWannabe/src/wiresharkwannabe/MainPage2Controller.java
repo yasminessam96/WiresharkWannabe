@@ -8,7 +8,9 @@ package wiresharkwannabe;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.io.File;
 import java.net.URL;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -24,7 +26,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.jnetpcap.Pcap;
+import org.jnetpcap.PcapDumper;
 import org.jnetpcap.PcapIf;
+import static wiresharkwannabe.Thread.pcap;
+import static wiresharkwannabe.WiresharkWannabe.pcap;
 
 /**
  * FXML Controller class
@@ -115,10 +120,12 @@ public class MainPage2Controller implements Initializable {
 
                 // Compare filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
+                
 
                 if (data.getprotocol().getValue().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches.
                 }
+               
                 return false; // Does not match.
             });
         });
@@ -133,5 +140,40 @@ public class MainPage2Controller implements Initializable {
         comboBox.setItems(devices);
 
     }
+
+//    public static void saveFile(Pcap pcap) {
+//        try {
+//            PcapDumper pdumper = pcap.dumpOpen("h.cap");
+//            for ( pd : MainPage2Controller.thread) {
+//                ByteBuffer bbuf = ByteBuffer.allocateDirect(pd.packet.getCaptureHeader().wirelen());
+//                byte[] bytes = new byte[pd.packet.size()];
+//                System.out.println("bytes : " + bytes.length);
+//                pd.packet.transferStateAndDataTo(bytes);
+//                System.out.println("bytes : " + bytes.length);
+//                pdumper.dump(pd.packet.getCaptureHeader().timestampInMillis(), pd.packet.getCaptureHeader().hdr_len(), pd.packet.getCaptureHeader().caplen(), pd.packet.getCaptureHeader().wirelen(), bbuf);
+//
+//            }
+//        } catch (Exception e) {
+//        };
+//
+    //  }
+//    String fname = "tests/test-afs.pcap";
+//
+//    Pcap pcap = Pcap.openOffline(fname, errbuf);
+//
+//    String ofile = "tmp-capture-file.cap";
+//    PcapDumper dumper = pcap.dumpOpen(ofile); // output file  
+
+  //  pcap.loop (10, dumper); // Special native dumper call to loop  
+                  
+//File file = new File(ofile);
+
+//    System.out.printf (
+//
+//    "%s file has %d bytes in it!\n", ofile, file.length());  
+                  
+//    dumper.close (); // Won't be able to delete without explicit close  
+
+  //  pcap.close ();
 
 }
