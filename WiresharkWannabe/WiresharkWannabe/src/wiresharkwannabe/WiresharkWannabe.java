@@ -96,6 +96,18 @@ public class WiresharkWannabe extends Application  {
      static PcapIf device;
      @Override
     public void start(Stage stage) throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("MainPage2.fxml"));
+       Parent root =loader.load();
+      MainPage2Controller myController = loader.getController();
+        Scene scene = new Scene(root);
+        
+   
+        stage.setScene(scene);
+       stage.resizableProperty().setValue(Boolean.FALSE);
+stage.show();
+myController.fillComboBox();  
+        
         if (r == Pcap.NOT_OK || alldevs.isEmpty()) {
             System.err.printf("Can't read list of devices, error is %s", errbuf
                     .toString());
