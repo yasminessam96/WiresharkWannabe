@@ -5,16 +5,12 @@
  */
 package wiresharkwannabe;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.jnetpcap.packet.PcapPacket;
 
 public class Info {
-    
+
     private StringProperty Number;
     private StringProperty time;
     private StringProperty ipSource;
@@ -23,11 +19,12 @@ public class Info {
     private StringProperty length;
     private StringProperty information;
     private PcapPacket packet;
+
     public Info() {
-        this(null, null, null, null, null, null,null);
+        this(null, null, null, null, null, null, null);
     }
 
-    public Info(String n, String t, String ips, String ipd, String p, String l,PcapPacket pack) {
+    public Info(String n, String t, String ips, String ipd, String p, String l, PcapPacket pack) {
 
         this.Number = new SimpleStringProperty(n);
         this.time = new SimpleStringProperty(t);
@@ -50,22 +47,21 @@ public class Info {
     public StringProperty getipSource() {
         return ipSource;
     }
-    public StringProperty getipDestination()
-    {
+
+    public StringProperty getipDestination() {
         return ipDestination;
     }
-    public StringProperty getprotocol()
-    {
+
+    public StringProperty getprotocol() {
         return protocol;
     }
-    public StringProperty getlength()
-    {
+
+    public StringProperty getlength() {
         return length;
     }
-    
-    public PcapPacket getPacket (){
-    return packet;
+
+    public PcapPacket getPacket() {
+        return packet;
     }
-    
-    
+
 }
