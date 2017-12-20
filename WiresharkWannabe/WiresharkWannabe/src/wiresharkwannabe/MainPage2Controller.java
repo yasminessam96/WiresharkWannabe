@@ -4,29 +4,6 @@
  * and open the template in the editor.
  */
 package wiresharkwannabe;
-
-//import com.jfoenix.controls.JFXButton;
-//import com.jfoenix.controls.JFXTextArea;
-//import com.jfoenix.controls.JFXTextField;
-//import java.net.URL;
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.ResourceBundle;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import javafx.collections.transformation.FilteredList;
-//import javafx.event.ActionEvent;
-//import javafx.fxml.FXML;
-//import javafx.fxml.Initializable;
-//import javafx.scene.control.ComboBox;
-//import javafx.scene.control.TableColumn;
-//import javafx.scene.control.TableView;
-//import javafx.scene.input.MouseEvent;
-//import javafx.scene.layout.AnchorPane;
-//import javafx.scene.text.Text;
-//import org.jnetpcap.Pcap;
-//import org.jnetpcap.PcapIf;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
@@ -45,7 +22,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -57,84 +33,75 @@ import org.jnetpcap.packet.PcapPacket;
 /**
  * FXML Controller class
  *
- * @author Farida Abouish
+ 
  */
 public class MainPage2Controller implements Initializable {
     @FXML
     private AnchorPane pane;
+   
     @FXML
     private Text filter;
-    @FXML
-    private TableView<?> output;
-    @FXML
-    private TableColumn<?, ?> number;
-    @FXML
-    private TableColumn<?, ?> time;
-    @FXML
-    private TableColumn<?, ?> source;
-    @FXML
-    private TableColumn<?, ?> destination;
-    @FXML
-    private TableColumn<?, ?> protocol;
-    @FXML
-    private TableColumn<?, ?> length;
-    @FXML
-    private TableColumn<?, ?> information;
-    @FXML
+     @FXML
     private JFXTextField filterSearch;
     @FXML
-//    private JFXButton capture;
-//    @FXML
-//    private JFXButton stop;
-//    @FXML
-//    private JFXTextArea details;
-//    @FXML
-//    private ComboBox<?> comboBox;
-    
-    JFXButton capture = new JFXButton();
+    private TableView<Info> output;
+    @FXML
+    private TableColumn<Info , String> number;
+    @FXML
+    private TableColumn<Info, String> time;
+    @FXML
+    private TableColumn<Info, String> source;
+    @FXML
+    private TableColumn<Info, String> destination;
+    @FXML
+    private TableColumn<Info, String> protocol;
+    @FXML
+    private TableColumn<Info, String> length;
+    @FXML
+    private TableColumn<Info, String> information;
+     @FXML
+JFXButton capture = new JFXButton();
       @FXML
 JFXButton stop = new JFXButton();
      @FXML
       ComboBox comboBox = new ComboBox();
      @FXML
    private JFXTextArea details = new JFXTextArea();
-    
      
      static StringBuilder errbuf = new StringBuilder();
    public static String deviceSelected;
-     public static java.lang.Thread thread;
+     public static Thread thread;
       public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
      static int r = Pcap.findAllDevs(alldevs, errbuf); 
      
       ObservableList<String> devices = FXCollections.observableArrayList();
-
-  
-      @FXML
-    private void handleSelection(MouseEvent event) {
-        Info selectedPacket = output.getSelectionModel().getSelectedItem();
-      details.setText(selectedPacket.getPacket().toString());
-    }
-
-    @FXML
-    private void handleCaptureButtonAction(ActionEvent event) {
-        int a = comboBox.getSelectionModel().getSelectedIndex();
+     
+     
+     @FXML
+      public void handleCaptureButtonAction(ActionEvent event) {
+          int a = comboBox.getSelectionModel().getSelectedIndex();
          WiresharkWannabe.device = alldevs.get(a);
-       thread = new java.lang.Thread();
+       thread = new Thread();
        thread.start();
-    }
-
-    @FXML
-    private void handleStopButtonAction(ActionEvent event) {
-           //     thread.cancel();
-
-    }
+       }
+        @FXML
+      public void handleStopButtonAction(ActionEvent event) {
+         thread.cancel();
+        
+       }
       
+       @FXML
+      public void handleSelection(){
+      Info selectedPacket = output.getSelectionModel().getSelectedItem();
+      details.setText(selectedPacket.getPacket().toString());
       
-      
+      }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-               // fillComboBox();
+       // fillComboBox();
       
+
         number.setCellValueFactory(cellData -> cellData.getValue().getNumber());
         time.setCellValueFactory(cellData -> cellData.getValue().gettime());
         source.setCellValueFactory(cellData -> cellData.getValue().getipSource());
@@ -160,9 +127,8 @@ JFXButton stop = new JFXButton();
             });
         });
            output.setItems(filteredData);
-    }    
-    
-    
+                   }
+
     public void fillComboBox() {
       
        for (PcapIf device : alldevs) {  
@@ -171,7 +137,6 @@ JFXButton stop = new JFXButton();
         comboBox.setItems(devices);
 
     }
+   
 
-    
-    
 }
