@@ -145,3 +145,9 @@ public class Thread extends Service {
     }
 
 }
+<<<<<<< HEAD
+=======
+
+    
+    
+>>>>>>> 0d1e0dbdcc9d5c6e8d2703f4c6dd987a80aa9563
