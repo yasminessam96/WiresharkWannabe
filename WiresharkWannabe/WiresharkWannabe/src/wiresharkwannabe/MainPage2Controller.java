@@ -12,6 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -25,10 +26,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.jnetpcap.Pcap;
 import org.jnetpcap.PcapDumper;
 import org.jnetpcap.PcapIf;
-import static wiresharkwannabe.Thread.pcap;
+import org.jnetpcap.packet.PcapPacket;
+import org.jnetpcap.packet.PcapPacketHandler;
+import org.jnetpcap.packet.format.FormatUtils;
+import static org.jnetpcap.packet.format.FormatUtils.ip;
+import org.jnetpcap.protocol.lan.Ethernet;
+import org.jnetpcap.protocol.network.Arp;
+import org.jnetpcap.protocol.network.Ip4;
+import org.jnetpcap.protocol.tcpip.Http;
+import org.jnetpcap.protocol.tcpip.Tcp;
+import org.jnetpcap.protocol.tcpip.Udp;
+import static wiresharkwannabe.Capturing.pcap;
 import static wiresharkwannabe.WiresharkWannabe.pcap;
 
 /**
@@ -64,6 +77,8 @@ public class MainPage2Controller implements Initializable {
     @FXML
     JFXButton capture = new JFXButton();
     @FXML
+    JFXButton open = new JFXButton();
+    @FXML
     JFXButton stop = new JFXButton();
     @FXML
     ComboBox comboBox = new ComboBox();
@@ -72,23 +87,29 @@ public class MainPage2Controller implements Initializable {
 
     static StringBuilder errbuf = new StringBuilder();
     public static String deviceSelected;
-    public static Thread thread;
+    public static Capturing thread;
     public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
     static int r = Pcap.findAllDevs(alldevs, errbuf);
-
+    
+      final FileChooser fileChooser = new FileChooser();
+    
+    
     ObservableList<String> devices = FXCollections.observableArrayList();
 
+     OpenFile o;
     @FXML
     public void handleCaptureButtonAction(ActionEvent event) {
         int a = comboBox.getSelectionModel().getSelectedIndex();
         WiresharkWannabe.device = alldevs.get(a);
-        thread = new Thread();
+        thread = new Capturing();
         thread.start();
     }
 
     @FXML
     public void handleStopButtonAction(ActionEvent event) {
+       
         thread.cancel();
+       //  thread.reset();
 
     }
 
@@ -96,6 +117,25 @@ public class MainPage2Controller implements Initializable {
     public void handleSelection() {
         Info selectedPacket = output.getSelectionModel().getSelectedItem();
         details.setText(selectedPacket.getPacket().toString());
+
+    }
+    
+@FXML
+    public void handleOpenButtonAction(ActionEvent event) {
+         WiresharkWannabe.information.clear();
+         
+         Stage primaryStage = new Stage();
+      
+     File file = fileChooser.showOpenDialog(primaryStage);
+            
+                if(file == null){
+                   // labelSelectedDirectory.setText("No Directory selected");
+                }else{
+                   String fname = file.getAbsoluteFile().getAbsolutePath();
+               //     System.out.println(file.getAbsoluteFile());
+                 o = new OpenFile(fname);
+                 o.start();
+                }
 
     }
 
@@ -140,40 +180,5 @@ public class MainPage2Controller implements Initializable {
         comboBox.setItems(devices);
 
     }
-
-//    public static void saveFile(Pcap pcap) {
-//        try {
-//            PcapDumper pdumper = pcap.dumpOpen("h.cap");
-//            for ( pd : MainPage2Controller.thread) {
-//                ByteBuffer bbuf = ByteBuffer.allocateDirect(pd.packet.getCaptureHeader().wirelen());
-//                byte[] bytes = new byte[pd.packet.size()];
-//                System.out.println("bytes : " + bytes.length);
-//                pd.packet.transferStateAndDataTo(bytes);
-//                System.out.println("bytes : " + bytes.length);
-//                pdumper.dump(pd.packet.getCaptureHeader().timestampInMillis(), pd.packet.getCaptureHeader().hdr_len(), pd.packet.getCaptureHeader().caplen(), pd.packet.getCaptureHeader().wirelen(), bbuf);
-//
-//            }
-//        } catch (Exception e) {
-//        };
-//
-    //  }
-//    String fname = "tests/test-afs.pcap";
-//
-//    Pcap pcap = Pcap.openOffline(fname, errbuf);
-//
-//    String ofile = "tmp-capture-file.cap";
-//    PcapDumper dumper = pcap.dumpOpen(ofile); // output file  
-
-  //  pcap.loop (10, dumper); // Special native dumper call to loop  
-                  
-//File file = new File(ofile);
-
-//    System.out.printf (
-//
-//    "%s file has %d bytes in it!\n", ofile, file.length());  
-                  
-//    dumper.close (); // Won't be able to delete without explicit close  
-
-  //  pcap.close ();
 
 }
