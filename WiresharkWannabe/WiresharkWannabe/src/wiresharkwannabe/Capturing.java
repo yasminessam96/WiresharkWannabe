@@ -31,9 +31,6 @@ import org.jnetpcap.packet.format.FormatUtils;
 public class Capturing extends Service {
 
     public static Ip4 ip = new Ip4();
-    public static Ethernet eth = new Ethernet();
-    public static Tcp tcp = new Tcp();
-    public static Udp udp = new Udp();
     public static Arp arp = new Arp();
     public static Http http = new Http();
 
@@ -51,10 +48,8 @@ public class Capturing extends Service {
     public static int counter = 0;
     static int r = Pcap.findAllDevs(alldevs, errbuf);
     public static int fileNum = 1;
-   String fname = "test-afs.pcap";  
-    String ofile;
-     PcapDumper dumper;
-   
+     String ofile;
+    PcapDumper dumper;
 
     public Capturing() {
         int snaplen = 64 * 1024;           // Capture all packets, no trucation  
@@ -67,19 +62,16 @@ public class Capturing extends Service {
                     + errbuf.toString());
             return;
         }
-        
-      ofile = "file"+fileNum+".pcap";  
+
+        ofile = "file" + fileNum + ".pcap";
         fileNum++;
-        dumper =pcap.dumpOpen(ofile);
+        dumper = pcap.dumpOpen(ofile);
     }
-  
- 
-   
-  
+
     PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {
 
         public void nextPacket(PcapPacket packet, String user) {
-dumper.dump(packet.getCaptureHeader(),packet);
+            dumper.dump(packet.getCaptureHeader(), packet);
             System.out.printf("Received packet at %s caplen=%-4d len=%-4d %s\n",
                     new Date(packet.getCaptureHeader().timestampInMillis()),
                     packet.getCaptureHeader().caplen(), // Length actually captured  
@@ -87,45 +79,24 @@ dumper.dump(packet.getCaptureHeader(),packet);
                     user // User supplied object  
 
             );
-            if (packet.hasHeader(ip)) {
-
-                src = FormatUtils.ip(ip.source());
-                dest = FormatUtils.ip(ip.destination());
-                protocol = "IP";
-
-                //}
-            }
-            if (packet.hasHeader(eth)) {
-                src = FormatUtils.mac(eth.source());
-                dest = FormatUtils.mac(eth.destination());
-                protocol = "Ethernet";
-
-            }
             if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "HTTP";
-            }
 
-            if (packet.hasHeader(arp)) {
+            } else if (packet.hasHeader(ip)) {
+
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                protocol = ip.typeEnum().toString();
+
+            } //
+            else if (packet.hasHeader(arp)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "ARP";
             }
-            if (packet.hasHeader(tcp)) {
-                System.out.println("TCP src port:\t" + tcp.source());
-                System.out.println("TCP dst port:\t" + tcp.destination());
-                src = String.valueOf(tcp.source());
-                dest = String.valueOf(tcp.destination());
-                protocol = "TCP";
-            } else if (packet.hasHeader(udp)) {
-                System.out.println("UDP src port:\t" + udp.source());
-                System.out.println("UDP dst port:\t" + udp.destination());
-                src = String.valueOf(udp.source());
-                dest = String.valueOf(udp.destination());
-                protocol = "UDP";
-
-            }
+//           
             header = new Date(packet.getCaptureHeader().timestampInMillis());
             String time = String.valueOf(header);
             caplen = packet.getCaptureHeader().caplen();// Length actually captured  

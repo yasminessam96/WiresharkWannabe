@@ -22,6 +22,12 @@ import org.jnetpcap.protocol.network.Ip4;
 import org.jnetpcap.protocol.tcpip.Http;
 import org.jnetpcap.protocol.tcpip.Tcp;
 import org.jnetpcap.protocol.tcpip.Udp;
+import static wiresharkwannabe.Capturing.arp;
+import static wiresharkwannabe.Capturing.dest;
+import static wiresharkwannabe.Capturing.http;
+import static wiresharkwannabe.Capturing.ip;
+import static wiresharkwannabe.Capturing.protocol;
+import static wiresharkwannabe.Capturing.src;
 
 /**
  *
@@ -39,9 +45,6 @@ public class OpenFile extends Service {
     public static int counter = 0;
     final StringBuilder errbuf = new StringBuilder();
     public static Ip4 ip = new Ip4();
-    public static Ethernet eth = new Ethernet();
-    public static Tcp tcp = new Tcp();
-    public static Udp udp = new Udp();
     public static Arp arp = new Arp();
     public static Http http = new Http();
     PcapPacketHandler<String> jpacketHandler;
@@ -64,46 +67,23 @@ public class OpenFile extends Service {
                         user // User supplied object  
 
                 );
-                if (packet.hasHeader(ip)) {
+                 if (packet.hasHeader(http)) {
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                prot= "HTTP";
 
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "IP";
-                    System.out.println(prot);
-                    //}
-                }
-                if (packet.hasHeader(eth)) {
-                    src = FormatUtils.mac(eth.source());
-                    dest = FormatUtils.mac(eth.destination());
-                    prot = "Ethernet";
-                    System.out.println(prot);
-                }
-                if (packet.hasHeader(http)) {
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "HTTP";
-                    System.out.println(prot);
-                }
+            } else if (packet.hasHeader(ip)) {
 
-                if (packet.hasHeader(arp)) {
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "ARP";
-                }
-                if (packet.hasHeader(tcp)) {
-                    System.out.println("TCP src port:\t" + tcp.source());
-                    System.out.println("TCP dst port:\t" + tcp.destination());
-                    src = String.valueOf(tcp.source());
-                    dest = String.valueOf(tcp.destination());
-                    prot = "TCP";
-                } else if (packet.hasHeader(udp)) {
-                    System.out.println("UDP src port:\t" + udp.source());
-                    System.out.println("UDP dst port:\t" + udp.destination());
-                    src = String.valueOf(udp.source());
-                    dest = String.valueOf(udp.destination());
-                    prot = "UDP";
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                prot = ip.typeEnum().toString();
 
-                }
+            } //
+            else if (packet.hasHeader(arp)) {
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                prot = "ARP";
+            }
                 header = new Date(packet.getCaptureHeader().timestampInMillis());
                 String time = String.valueOf(header);
                 caplen = packet.getCaptureHeader().caplen();// Length actually captured  
@@ -120,6 +100,7 @@ public class OpenFile extends Service {
         };
 
     }
+
 
     @Override
     protected Task createTask() {

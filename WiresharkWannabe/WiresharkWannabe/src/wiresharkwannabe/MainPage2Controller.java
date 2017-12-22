@@ -10,9 +10,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.net.URL;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,20 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jnetpcap.Pcap;
-import org.jnetpcap.PcapDumper;
 import org.jnetpcap.PcapIf;
-import org.jnetpcap.packet.PcapPacket;
-import org.jnetpcap.packet.PcapPacketHandler;
-import org.jnetpcap.packet.format.FormatUtils;
-import static org.jnetpcap.packet.format.FormatUtils.ip;
-import org.jnetpcap.protocol.lan.Ethernet;
-import org.jnetpcap.protocol.network.Arp;
-import org.jnetpcap.protocol.network.Ip4;
-import org.jnetpcap.protocol.tcpip.Http;
-import org.jnetpcap.protocol.tcpip.Tcp;
-import org.jnetpcap.protocol.tcpip.Udp;
-import static wiresharkwannabe.Capturing.pcap;
-import static wiresharkwannabe.WiresharkWannabe.pcap;
 
 /**
  * FXML Controller class
@@ -128,13 +113,10 @@ public class MainPage2Controller implements Initializable {
         File file = fileChooser.showOpenDialog(primaryStage);
 
         if (file == null) {
-            // labelSelectedDirectory.setText("No Directory selected");
+            System.out.println("error");
         } else {
-            //    String fname = file.getAbsoluteFile().getAbsolutePath();
-            //     System.out.println(file.getAbsoluteFile());
-            // o = new OpenFile(fname);
+         
             o = new OpenFile(file.getAbsoluteFile().getAbsolutePath());
-            System.out.println(file.getAbsoluteFile());
             o.start();
         }
 
@@ -142,7 +124,7 @@ public class MainPage2Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // fillComboBox();
+      
 
         number.setCellValueFactory(cellData -> cellData.getValue().getNumber());
         time.setCellValueFactory(cellData -> cellData.getValue().gettime());
