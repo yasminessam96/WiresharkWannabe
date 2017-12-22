@@ -126,16 +126,19 @@ public class MainPage2Controller implements Initializable {
          
          Stage primaryStage = new Stage();
       
-     File file = fileChooser.showOpenDialog(primaryStage);
-            
-                if(file == null){
-                   // labelSelectedDirectory.setText("No Directory selected");
-                }else{
-                   String fname = file.getAbsoluteFile().getAbsolutePath();
-               //     System.out.println(file.getAbsoluteFile());
-                 o = new OpenFile(fname);
-                 o.start();
-                }
+        File file = fileChooser.showOpenDialog(primaryStage);
+
+        if (file == null) {
+            // labelSelectedDirectory.setText("No Directory selected");
+        } else {
+               //    String fname = file.getAbsoluteFile().getAbsolutePath();
+            //     System.out.println(file.getAbsoluteFile());
+            // o = new OpenFile(fname);
+            o = new OpenFile(file.getAbsoluteFile().getAbsolutePath());
+            System.out.println(file.getAbsoluteFile());
+            o.start();
+        }
+        
 
     }
 
