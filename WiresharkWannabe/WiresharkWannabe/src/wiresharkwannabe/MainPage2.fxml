@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,52 +12,54 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="886.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wiresharkwannabe.MainPage2Controller">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="886.0" prefWidth="1072.0" style="-fx-background-color: #97a5e7;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wiresharkwannabe.MainPage2Controller">
    <children>
-      <Text fx:id="filter" layoutX="34.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Search:" wrappingWidth="117.169921875">
+      <Text fx:id="filter" fill="#791d1d" fontSmoothingType="LCD" layoutX="34.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Search:" wrappingWidth="117.169921875">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Text>
-      <TableView fx:id="output" layoutX="34.0" layoutY="221.0" onMouseClicked="#handleSelection" prefHeight="365.0" prefWidth="1202.0">
+      <TableView fx:id="output" layoutX="34.0" layoutY="221.0" onMouseClicked="#handleSelection" prefHeight="365.0" prefWidth="1004.0">
         <columns>
           <TableColumn fx:id="number" prefWidth="75.0" text="No." />
-          <TableColumn fx:id="time" prefWidth="153.0" text="Time" />
-            <TableColumn fx:id="source" prefWidth="151.0" text="Source" />
-            <TableColumn fx:id="destination" prefWidth="197.0" text="Destination" />
-            <TableColumn fx:id="protocol" prefWidth="133.0" text="Protocol" />
-            <TableColumn fx:id="length" prefWidth="171.0" text="Length" />
-            <TableColumn fx:id="information" prefWidth="321.0" text="Information" />
+          <TableColumn fx:id="time" prefWidth="195.0" text="Time" />
+            <TableColumn fx:id="source" prefWidth="180.0" text="Source" />
+            <TableColumn fx:id="destination" prefWidth="212.0" text="Destination" />
+            <TableColumn fx:id="protocol" prefWidth="130.0" text="Protocol" />
+            <TableColumn fx:id="length" prefWidth="211.0" text="Length" />
         </columns>
       </TableView>
-      <JFXTextField fx:id="filterSearch" layoutX="152.0" layoutY="185.0" prefHeight="31.0" prefWidth="1084.0">
+      <JFXTextField fx:id="filterSearch" layoutX="152.0" layoutY="185.0" prefHeight="31.0" prefWidth="889.0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></JFXTextField>
-      <JFXButton fx:id="capture" layoutX="1043.0" layoutY="37.0" onAction="#handleCaptureButtonAction" text="CAPTURE">
+      <JFXButton fx:id="capture" buttonType="RAISED" layoutX="827.0" layoutY="128.0" onAction="#handleCaptureButtonAction" text="CAPTURE" textFill="#510b0b" underline="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="stop" layoutX="1146.0" layoutY="37.0" onAction="#handleStopButtonAction" text="STOP">
+      <JFXButton fx:id="stop" buttonType="RAISED" layoutX="969.0" layoutY="128.0" onAction="#handleStopButtonAction" text="STOP" textFill="#541313" underline="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXTextArea fx:id="details" editable="false" labelFloat="true" layoutX="34.0" layoutY="586.0" prefHeight="271.0" prefWidth="1202.0" wrapText="true">
+      <JFXTextArea fx:id="details" editable="false" focusColor="#25386f" labelFloat="true" layoutX="34.0" layoutY="586.0" prefHeight="271.0" prefWidth="1004.0" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></JFXTextArea>
-      <Label layoutX="460.0" layoutY="66.0" text="Welcome to WireSharkWannabe">
+      <Label layoutX="299.0" layoutY="85.0" text="Welcome to WireSharkWannabe" textFill="#6b1d1d" underline="true" wrapText="true">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBox" layoutX="34.0" layoutY="40.0" prefHeight="31.0" prefWidth="163.0" promptText="Choose a device" />
-      <JFXButton fx:id="open" layoutX="944.0" layoutY="37.0" onAction="#handleOpenButtonAction" prefHeight="31.0" prefWidth="77.0" text="OPEN">
+      <ComboBox fx:id="comboBox" layoutX="855.0" layoutY="43.0" opacity="0.78" prefHeight="31.0" prefWidth="163.0" promptText="Choose a device" />
+      <JFXButton fx:id="open" buttonType="RAISED" layoutX="40.0" layoutY="43.0" onAction="#handleOpenButtonAction" prefHeight="31.0" prefWidth="77.0" ripplerFill="#8d4141" text="OPEN" textFill="#5b0d0d" underline="true" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
    </children>
+   <opaqueInsets>
+      <Insets bottom="12.0" right="12.0" top="12.0" />
+   </opaqueInsets>
 </AnchorPane>

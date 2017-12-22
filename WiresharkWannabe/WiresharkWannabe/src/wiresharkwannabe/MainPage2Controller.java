@@ -72,8 +72,7 @@ public class MainPage2Controller implements Initializable {
     private TableColumn<Info, String> protocol;
     @FXML
     private TableColumn<Info, String> length;
-    @FXML
-    private TableColumn<Info, String> information;
+    
     @FXML
     JFXButton capture = new JFXButton();
     @FXML
