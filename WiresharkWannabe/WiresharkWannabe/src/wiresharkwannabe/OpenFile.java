@@ -64,20 +64,20 @@ public class OpenFile extends Service {
                         user // User supplied object  
 
                 );
-                if (packet.hasHeader(ip)) {
-
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "IP";
-                    System.out.println(prot);
-                    //}
-                }
-                if (packet.hasHeader(eth)) {
-                    src = FormatUtils.mac(eth.source());
-                    dest = FormatUtils.mac(eth.destination());
-                    prot = "Ethernet";
-                    System.out.println(prot);
-                }
+//                if (packet.hasHeader(ip)) {
+//
+//                    src = FormatUtils.ip(ip.source());
+//                    dest = FormatUtils.ip(ip.destination());
+//                    prot = "IP";
+//                    System.out.println(prot);
+//                    //}
+//                }
+//                if (packet.hasHeader(eth)) {
+//                    src = FormatUtils.mac(eth.source());
+//                    dest = FormatUtils.mac(eth.destination());
+//                    prot = "Ethernet";
+//                    System.out.println(prot);
+//                }
                 if (packet.hasHeader(http)) {
                     src = FormatUtils.ip(ip.source());
                     dest = FormatUtils.ip(ip.destination());
@@ -85,25 +85,25 @@ public class OpenFile extends Service {
                     System.out.println(prot);
                 }
 
-                if (packet.hasHeader(arp)) {
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "ARP";
-                }
-                if (packet.hasHeader(tcp)) {
-                    System.out.println("TCP src port:\t" + tcp.source());
-                    System.out.println("TCP dst port:\t" + tcp.destination());
-                    src = String.valueOf(tcp.source());
-                    dest = String.valueOf(tcp.destination());
-                    prot = "TCP";
-                } else if (packet.hasHeader(udp)) {
-                    System.out.println("UDP src port:\t" + udp.source());
-                    System.out.println("UDP dst port:\t" + udp.destination());
-                    src = String.valueOf(udp.source());
-                    dest = String.valueOf(udp.destination());
-                    prot = "UDP";
-
-                }
+//                if (packet.hasHeader(arp)) {
+//                    src = FormatUtils.ip(ip.source());
+//                    dest = FormatUtils.ip(ip.destination());
+//                    prot = "ARP";
+//                }
+//                if (packet.hasHeader(tcp)) {
+//                    System.out.println("TCP src port:\t" + tcp.source());
+//                    System.out.println("TCP dst port:\t" + tcp.destination());
+//                    src = String.valueOf(tcp.source());
+//                    dest = String.valueOf(tcp.destination());
+//                    prot = "TCP";
+//                } else if (packet.hasHeader(udp)) {
+//                    System.out.println("UDP src port:\t" + udp.source());
+//                    System.out.println("UDP dst port:\t" + udp.destination());
+//                    src = String.valueOf(udp.source());
+//                    dest = String.valueOf(udp.destination());
+//                    prot = "UDP";
+//
+//                }
                 header = new Date(packet.getCaptureHeader().timestampInMillis());
                 String time = String.valueOf(header);
                 caplen = packet.getCaptureHeader().caplen();// Length actually captured  

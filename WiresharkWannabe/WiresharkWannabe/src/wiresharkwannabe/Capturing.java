@@ -87,46 +87,27 @@ dumper.dump(packet.getCaptureHeader(),packet);
                     user // User supplied object  
 
             );
-            if (packet.hasHeader(ip)) {
-
-                src = FormatUtils.ip(ip.source());
-                dest = FormatUtils.ip(ip.destination());
-                protocol = "IP";
-
-                //}
-            }
-            if (packet.hasHeader(eth)) {
-                src = FormatUtils.mac(eth.source());
-                dest = FormatUtils.mac(eth.destination());
-                protocol = "Ethernet";
-
-            }
-            if (packet.hasHeader(http)) {
+              if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "HTTP";
             }
+           else if (packet.hasHeader(ip)) {
 
-            if (packet.hasHeader(arp)) {
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                protocol = ip.typeEnum().toString();
+
+                //}
+     }
+
+         else   if (packet.hasHeader(arp)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "ARP";
             }
-            if (packet.hasHeader(tcp)) {
-                System.out.println("TCP src port:\t" + tcp.source());
-                System.out.println("TCP dst port:\t" + tcp.destination());
-                src = String.valueOf(tcp.source());
-                dest = String.valueOf(tcp.destination());
-                protocol = "TCP";
-            } else if (packet.hasHeader(udp)) {
-                System.out.println("UDP src port:\t" + udp.source());
-                System.out.println("UDP dst port:\t" + udp.destination());
-                src = String.valueOf(udp.source());
-                dest = String.valueOf(udp.destination());
-                protocol = "UDP";
 
-            }
-            header = new Date(packet.getCaptureHeader().timestampInMillis());
+          header = new Date(packet.getCaptureHeader().timestampInMillis());
             String time = String.valueOf(header);
             caplen = packet.getCaptureHeader().caplen();// Length actually captured  
             String leng = String.valueOf(caplen);

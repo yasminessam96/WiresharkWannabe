@@ -52,7 +52,7 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBox" layoutX="856.0" layoutY="65.0" opacity="0.78" prefHeight="31.0" prefWidth="163.0" promptText="Choose a device" />
+      <ComboBox fx:id="comboBox" layoutX="800.0" layoutY="65.0" opacity="0.78" prefHeight="31.0" prefWidth="163.0" promptText="Choose a device" />
       <JFXButton fx:id="open" buttonType="RAISED" layoutX="54.0" layoutY="65.0" onAction="#handleOpenButtonAction" prefHeight="31.0" prefWidth="77.0" ripplerFill="#8d4141" text="OPEN" textFill="#5b0d0d" underline="true" wrapText="true">
          <font>
             <Font name="System Bold" size="15.0" />
