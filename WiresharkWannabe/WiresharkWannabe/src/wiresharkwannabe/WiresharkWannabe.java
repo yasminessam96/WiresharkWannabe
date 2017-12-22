@@ -29,9 +29,8 @@ import javafx.scene.Parent;
 public class WiresharkWannabe extends Application {
 
     public static ObservableList<Info> information = FXCollections.observableArrayList();
-    //public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
     public static ObservableList<PcapIf> alldevs = FXCollections.observableArrayList();
-    public static StringBuilder errbuf = new StringBuilder(); // For any error msgs  
+    public static StringBuilder errbuf = new StringBuilder();  
     public static Pcap pcap;
 
     public static ArrayList<Info> packetInfo = new ArrayList();
@@ -53,19 +52,8 @@ public class WiresharkWannabe extends Application {
         myController.fillComboBox();
 
         if (r == Pcap.NOT_OK || alldevs.isEmpty()) {
-            System.err.printf("Can't read list of devices, error is %s", errbuf
-                    .toString());
+            System.err.printf("error: %s", errbuf.toString());
             return;
-        }
-
-        System.out.println("Network devices found:");
-
-        int i = 0;
-        for (PcapIf device : alldevs) {
-            String description
-                    = (device.getDescription() != null) ? device.getDescription()
-                    : "No description available";
-            System.out.printf("#%d: %s [%s]\n", i++, device.getName(), description);
         }
 
     }

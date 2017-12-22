@@ -17,10 +17,7 @@ import org.jnetpcap.protocol.network.Arp;
 import org.jnetpcap.protocol.network.Ip4;
 import org.jnetpcap.protocol.tcpip.Http;
 
-/**
- *
- * @author Yasmin
- */
+
 public class OpenFile extends Service {
 
     public static String src;
@@ -48,14 +45,6 @@ public class OpenFile extends Service {
 
             public void nextPacket(PcapPacket packet, String user) {
 
-                System.out.printf("Received packet at %s caplen=%-4d len=%-4d %s\n",
-                        new Date(packet.getCaptureHeader().timestampInMillis()),
-                        packet.getCaptureHeader().caplen(), // Length actually captured  
-                        packet.getCaptureHeader().wirelen(), // Original length   
-                        user // User supplied object  
-
-                );
-
                  if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
@@ -67,7 +56,7 @@ public class OpenFile extends Service {
                 dest = FormatUtils.ip(ip.destination());
                 prot = ip.typeEnum().toString();
 
-            } //
+            } 
             else if (packet.hasHeader(arp)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
@@ -82,8 +71,6 @@ public class OpenFile extends Service {
                 String counterStr = String.valueOf(counter);
                 info = new Info(counterStr, time, src, dest, prot, leng, packet);
                 WiresharkWannabe.information.add(info);
-                System.out.println(prot);
-                System.out.println(counter);
                 counter++;
 
             }
@@ -104,7 +91,7 @@ public class OpenFile extends Service {
                         break;
                     }
 
-                    pcap2.loop(-1, jpacketHandler, "lolzz");
+                    pcap2.loop(-1, jpacketHandler, "");
                 }
                 return null;
             }

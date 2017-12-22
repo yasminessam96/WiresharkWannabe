@@ -54,12 +54,6 @@ public class Capturing extends Service {
         int timeout = 10 * 1000;           // 10 seconds in millis  
         pcap = Pcap.openLive(WiresharkWannabe.device.getName(), snaplen, flags, timeout, errbuf);
 
-        if (pcap == null) {
-            System.err.printf("Error while opening device for capture: "
-                    + errbuf.toString());
-            return;
-        }
-
         ofile = "file" + fileNum + ".pcap";
         fileNum++;
         dumper = pcap.dumpOpen(ofile);
@@ -69,14 +63,7 @@ public class Capturing extends Service {
 
         public void nextPacket(PcapPacket packet, String user) {
             dumper.dump(packet.getCaptureHeader(), packet);
-            System.out.printf("Received packet at %s caplen=%-4d len=%-4d %s\n",
-                    new Date(packet.getCaptureHeader().timestampInMillis()),
-                    packet.getCaptureHeader().caplen(), // Length actually captured  
-                    packet.getCaptureHeader().wirelen(), // Original length   
-                    user // User supplied object  
-
-            );
-
+          
             if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());

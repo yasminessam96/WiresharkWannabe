@@ -93,8 +93,7 @@ public class MainPage2Controller implements Initializable {
     public void handleStopButtonAction(ActionEvent event) {
 
         thread.cancel();
-        //  thread.reset();
-
+      
     }
 
     @FXML
@@ -145,10 +144,10 @@ public class MainPage2Controller implements Initializable {
                 String lowerCaseFilter = newValue.toLowerCase();
 
                 if (data.getprotocol().getValue().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches.
+                    return true; // match
                 }
 
-                return false; // Does not match.
+                return false; // no match
             });
         });
         output.setItems(filteredData);

@@ -17,7 +17,6 @@ public class Info {
     private StringProperty ipDestination;
     private StringProperty protocol;
     private StringProperty length;
-    private StringProperty information;
     private PcapPacket packet;
 
     public Info() {
