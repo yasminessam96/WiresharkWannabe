@@ -134,7 +134,7 @@ System.out.println(prot);
                         break;
                     }
 
-                    pcap2.loop(Pcap.LOOP_INFINITE, jpacketHandler, "lolzz");
+                    pcap2.loop(-1, jpacketHandler, "lolzz");
                 }
                 return null;
             }
