@@ -5,29 +5,17 @@
  */
 package wiresharkwannabe;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.jnetpcap.Pcap;
 import org.jnetpcap.packet.PcapPacket;
 import org.jnetpcap.packet.PcapPacketHandler;
 import org.jnetpcap.packet.format.FormatUtils;
-import org.jnetpcap.protocol.lan.Ethernet;
 import org.jnetpcap.protocol.network.Arp;
 import org.jnetpcap.protocol.network.Ip4;
 import org.jnetpcap.protocol.tcpip.Http;
-import org.jnetpcap.protocol.tcpip.Tcp;
-import org.jnetpcap.protocol.tcpip.Udp;
-import static wiresharkwannabe.Capturing.arp;
-import static wiresharkwannabe.Capturing.dest;
-import static wiresharkwannabe.Capturing.http;
-import static wiresharkwannabe.Capturing.ip;
-import static wiresharkwannabe.Capturing.protocol;
-import static wiresharkwannabe.Capturing.src;
 
 /**
  *
@@ -67,7 +55,7 @@ public class OpenFile extends Service {
                         user // User supplied object  
 
                 );
-<<<<<<< HEAD
+
                  if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
@@ -85,48 +73,8 @@ public class OpenFile extends Service {
                 dest = FormatUtils.ip(ip.destination());
                 prot = "ARP";
             }
-=======
-//                if (packet.hasHeader(ip)) {
-//
-//                    src = FormatUtils.ip(ip.source());
-//                    dest = FormatUtils.ip(ip.destination());
-//                    prot = "IP";
-//                    System.out.println(prot);
-//                    //}
-//                }
-//                if (packet.hasHeader(eth)) {
-//                    src = FormatUtils.mac(eth.source());
-//                    dest = FormatUtils.mac(eth.destination());
-//                    prot = "Ethernet";
-//                    System.out.println(prot);
-//                }
-                if (packet.hasHeader(http)) {
-                    src = FormatUtils.ip(ip.source());
-                    dest = FormatUtils.ip(ip.destination());
-                    prot = "HTTP";
-                    System.out.println(prot);
-                }
 
-//                if (packet.hasHeader(arp)) {
-//                    src = FormatUtils.ip(ip.source());
-//                    dest = FormatUtils.ip(ip.destination());
-//                    prot = "ARP";
-//                }
-//                if (packet.hasHeader(tcp)) {
-//                    System.out.println("TCP src port:\t" + tcp.source());
-//                    System.out.println("TCP dst port:\t" + tcp.destination());
-//                    src = String.valueOf(tcp.source());
-//                    dest = String.valueOf(tcp.destination());
-//                    prot = "TCP";
-//                } else if (packet.hasHeader(udp)) {
-//                    System.out.println("UDP src port:\t" + udp.source());
-//                    System.out.println("UDP dst port:\t" + udp.destination());
-//                    src = String.valueOf(udp.source());
-//                    dest = String.valueOf(udp.destination());
-//                    prot = "UDP";
-//
-//                }
->>>>>>> 7529a00c3f7b8fc48d8c2b55f21afe369d383e4f
+               
                 header = new Date(packet.getCaptureHeader().timestampInMillis());
                 String time = String.valueOf(header);
                 caplen = packet.getCaptureHeader().caplen();// Length actually captured  

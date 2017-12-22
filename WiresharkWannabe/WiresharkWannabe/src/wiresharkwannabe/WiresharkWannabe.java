@@ -29,7 +29,7 @@ import javafx.scene.Parent;
 public class WiresharkWannabe extends Application {
 
     public static ObservableList<Info> information = FXCollections.observableArrayList();
-    // public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
+    //public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
     public static ObservableList<PcapIf> alldevs = FXCollections.observableArrayList();
     public static StringBuilder errbuf = new StringBuilder(); // For any error msgs  
     public static Pcap pcap;
