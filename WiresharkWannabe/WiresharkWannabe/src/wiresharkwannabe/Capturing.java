@@ -79,25 +79,46 @@ public class Capturing extends Service {
                     user // User supplied object  
 
             );
+<<<<<<< HEAD
             if (packet.hasHeader(http)) {
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "HTTP";
 
             } else if (packet.hasHeader(ip)) {
+=======
+              if (packet.hasHeader(http)) {
+                src = FormatUtils.ip(ip.source());
+                dest = FormatUtils.ip(ip.destination());
+                protocol = "HTTP";
+            }
+           else if (packet.hasHeader(ip)) {
+>>>>>>> 7529a00c3f7b8fc48d8c2b55f21afe369d383e4f
 
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = ip.typeEnum().toString();
 
+<<<<<<< HEAD
             } //
             else if (packet.hasHeader(arp)) {
+=======
+                //}
+     }
+
+         else   if (packet.hasHeader(arp)) {
+>>>>>>> 7529a00c3f7b8fc48d8c2b55f21afe369d383e4f
                 src = FormatUtils.ip(ip.source());
                 dest = FormatUtils.ip(ip.destination());
                 protocol = "ARP";
             }
+<<<<<<< HEAD
 //           
             header = new Date(packet.getCaptureHeader().timestampInMillis());
+=======
+
+          header = new Date(packet.getCaptureHeader().timestampInMillis());
+>>>>>>> 7529a00c3f7b8fc48d8c2b55f21afe369d383e4f
             String time = String.valueOf(header);
             caplen = packet.getCaptureHeader().caplen();// Length actually captured  
             String leng = String.valueOf(caplen);
