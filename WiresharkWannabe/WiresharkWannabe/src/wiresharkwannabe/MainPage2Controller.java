@@ -72,7 +72,7 @@ public class MainPage2Controller implements Initializable {
     private TableColumn<Info, String> protocol;
     @FXML
     private TableColumn<Info, String> length;
-    
+
     @FXML
     JFXButton capture = new JFXButton();
     @FXML
@@ -89,13 +89,13 @@ public class MainPage2Controller implements Initializable {
     public static Capturing thread;
     public static List<PcapIf> alldevs = new ArrayList<PcapIf>();
     static int r = Pcap.findAllDevs(alldevs, errbuf);
-    
-      final FileChooser fileChooser = new FileChooser();
-    
-    
+
+    final FileChooser fileChooser = new FileChooser();
+
     ObservableList<String> devices = FXCollections.observableArrayList();
 
-     OpenFile o;
+    OpenFile o;
+
     @FXML
     public void handleCaptureButtonAction(ActionEvent event) {
         int a = comboBox.getSelectionModel().getSelectedIndex();
@@ -106,9 +106,9 @@ public class MainPage2Controller implements Initializable {
 
     @FXML
     public void handleStopButtonAction(ActionEvent event) {
-       
+
         thread.cancel();
-       //  thread.reset();
+        //  thread.reset();
 
     }
 
@@ -118,26 +118,25 @@ public class MainPage2Controller implements Initializable {
         details.setText(selectedPacket.getPacket().toString());
 
     }
-    
-@FXML
+
+    @FXML
     public void handleOpenButtonAction(ActionEvent event) {
-         WiresharkWannabe.information.clear();
-         
-         Stage primaryStage = new Stage();
-      
+        WiresharkWannabe.information.clear();
+
+        Stage primaryStage = new Stage();
+
         File file = fileChooser.showOpenDialog(primaryStage);
 
         if (file == null) {
             // labelSelectedDirectory.setText("No Directory selected");
         } else {
-               //    String fname = file.getAbsoluteFile().getAbsolutePath();
+            //    String fname = file.getAbsoluteFile().getAbsolutePath();
             //     System.out.println(file.getAbsoluteFile());
             // o = new OpenFile(fname);
             o = new OpenFile(file.getAbsoluteFile().getAbsolutePath());
             System.out.println(file.getAbsoluteFile());
             o.start();
         }
-        
 
     }
 
@@ -162,12 +161,11 @@ public class MainPage2Controller implements Initializable {
 
                 // Compare filter text.
                 String lowerCaseFilter = newValue.toLowerCase();
-                
 
                 if (data.getprotocol().getValue().toLowerCase().contains(lowerCaseFilter)) {
                     return true; // Filter matches.
                 }
-               
+
                 return false; // Does not match.
             });
         });
